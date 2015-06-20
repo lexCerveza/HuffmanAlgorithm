@@ -2,9 +2,9 @@ package com.lexcerveza;
 
 public class Main {
 
-    private static String sourceString = "cccaabdbbaccdb";
+    private static String sourceString = "sgagsadsfsfasdasgadssadgadsadsgasdassdasd";
 
     public static void main(String[] args) {
-        HuffmanEncodeDecode.encode(sourceString);
+        System.out.println(HuffmanEncodeDecode.encode(sourceString));
     }
 }

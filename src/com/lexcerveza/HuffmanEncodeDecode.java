@@ -7,7 +7,41 @@ import java.util.*;
  */
 public class HuffmanEncodeDecode {
 
-    public static void encode(String sourceString){
+    /**
+     * Table character -> code in Huffmann tree
+     */
+    private static HashMap<Character, String> table;
+
+    /**
+     * Huffmann tree node code
+     */
+    private static StringBuilder code;
+
+    /**
+     * Recursive function to find all roots to Huffmann tree nodes with
+     * characters
+     * @param root - root
+     * @return table
+     */
+    private static void generateTable(Node root){
+
+        if(root.left != null){
+            code.append("0");
+            generateTable(root.left);
+        }
+
+        if(root.right != null){
+            code.append("1");
+            generateTable(root.right);
+        }
+
+        if(root.right == root.left){
+            table.put(root.c, code.toString());
+            code.deleteCharAt(code.length() - 1);
+        }
+    }
+
+    public static String encode(String sourceString){
         // First of all, check all occurrences of each character
         // in string
         Map<Character, Integer> map = new HashMap<>();
@@ -41,9 +75,16 @@ public class HuffmanEncodeDecode {
         }
 
         // Third, build a table of codes
+        table = new HashMap<>();
+        code = new StringBuilder();
+        generateTable(queue.poll());
 
+        // At last, generate the encoded message
+        StringBuilder encodedMessage = new StringBuilder();
+        for (int i = 0; i < sourceString.length(); i++){
+            encodedMessage.append(table.get(sourceString.charAt(i)));
+        }
 
-        // Debug thing.
-        // int i = 1;
+        return encodedMessage.toString();
     }
 }
