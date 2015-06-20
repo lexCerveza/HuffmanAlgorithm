@@ -21,24 +21,29 @@ public class HuffmanEncodeDecode {
         }
 
         // Secondly, build a tree of nodes and sort it
-        List<Node> nodes = new ArrayList<>();
+        // First implementation used LinkedList and it worked wrong. Node class
+        // began using Comparable interface and instead of using LinkedList, I checked
+        // open-source implementation (http://rosettacode.org/wiki/Huffman_coding#Java)
+        // and began using PriorityQueue.
+        // Don't know, how it worked fine with PriorityQueue, honest)
+        // It's 11 pm) I need some goddamn coffee
+        Comparator<Node> comparator = (node1, node2) -> node1.frequency - node2.frequency;
+        PriorityQueue<Node> queue = new PriorityQueue<>(comparator);
         for (Map.Entry<Character, Integer> entry : map.entrySet()){
-            nodes.add(new Node(entry.getKey(), entry.getValue()));
+            queue.offer(new Node(entry.getKey(), entry.getValue()));
         }
 
-        Comparator<Node> nodeComparator = (node1, node2) -> node1.count - node2.count;
-        while(nodes.size() != 1) {
-            nodes.sort(nodeComparator);
-            Node left = nodes.get(0);
-            nodes.remove(left);
-            Node right = nodes.get(0);
-            nodes.remove(right);
+        while(queue.size() != 1){
+            Node node1 = queue.poll();
+            Node node2 = queue.poll();
 
-            Node parent = new Node(left, right);
-            nodes.add(parent);
+            queue.offer(new Node(node1, node2));
         }
+
+        // Third, build a table of codes
+
 
         // Debug thing.
-        int i = 1;
+        // int i = 1;
     }
 }
