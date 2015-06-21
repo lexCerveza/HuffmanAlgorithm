@@ -24,17 +24,14 @@ public class HuffmanEncodeDecode {
      * @return table
      */
     private static void generateTable(Node root){
-
         if(root.left != null){
             code.append("0");
             generateTable(root.left);
         }
-
         if(root.right != null){
             code.append("1");
             generateTable(root.right);
         }
-
         if(root.right == root.left){
             table.put(root.c, code.toString());
             code.deleteCharAt(code.length() - 1);
@@ -55,12 +52,9 @@ public class HuffmanEncodeDecode {
         }
 
         // Secondly, build a tree of nodes and sort it
-        // First implementation used LinkedList and it worked wrong. Node class
-        // began using Comparable interface and instead of using LinkedList, I checked
-        // open-source implementation (http://rosettacode.org/wiki/Huffman_coding#Java)
-        // and began using PriorityQueue.
-        // Don't know, how it worked fine with PriorityQueue, honest)
-        // It's 11 pm) I need some goddamn coffee
+        // I checked open-source implementation (http://rosettacode.org/wiki/Huffman_coding#Java)
+        // and began using PriorityQueue. Using Comparator object, it sorts queue
+        // in ascending order
         Comparator<Node> comparator = (node1, node2) -> node1.frequency - node2.frequency;
         PriorityQueue<Node> queue = new PriorityQueue<>(comparator);
         for (Map.Entry<Character, Integer> entry : map.entrySet()){

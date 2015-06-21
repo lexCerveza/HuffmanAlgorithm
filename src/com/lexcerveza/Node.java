@@ -3,7 +3,7 @@ package com.lexcerveza;
 /**
  * Created by Alex on 20.06.2015.
  */
-public class Node implements Comparable<Node>{
+public class Node {
 
     public int frequency;
     public char c;
@@ -22,10 +22,5 @@ public class Node implements Comparable<Node>{
         this.frequency = left.frequency + right.frequency;
         this.left = left;
         this.right = right;
-    }
-
-    @Override
-    public int compareTo(Node o) {
-        return this.frequency - o.frequency;
     }
 }
